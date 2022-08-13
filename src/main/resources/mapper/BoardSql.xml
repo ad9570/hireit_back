@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.BoardMapper">
+	<insert id="insertBoard" parameterType="board">
+	
+		insert into board (board_id,writer,title,content,photo,hit,heart,nikname,category_name,writedate) 
+		values (#{board_id},#{writer},#{title},#{content},#{photo},#{hit},#{heart},#{nikname},#{category_name},now())
+	</insert>
+
+	<select id="getTotalCount" resultType="int">
+		select count(*) from board	
+	</select>
+
+	<select id="getPagingList" parameterType="Map" resultType="board">
+		select * from board order by board_id desc limit #{start},#{perpage}
+	</select>
+	
+	<select id="getAllDatas" parameterType="String" resultType="board">
+		select * from board where category_name=#{category_name} ORDER BY board_id desc
+	</select>
+	
+	<select id="getData" parameterType="int" resultType="board">
+		select * from board where board_id=#{board_id}
+	</select>
+	
+	<update id="updateHit" parameterType="Map">
+		update board set hit=#{hit} where board_id=#{board_id}
+	</update>
+	
+	<select id="getCategories" parameterType="String" resultType="board">
+		select * from board where category_name=#{category_name}	
+	</select>
+	
+	<update id="updateChu" parameterType="Map">
+		update board set heart=#{heart},
+	
+		 where boart_id=#{board_id}
+	</update>
+	
+		<select id="deleteBoard" parameterType="int">
+		delete from board where board_id=#{board_id}
+	</select>
+	
+	<update id="updateBoard" parameterType="board">
+		update board set title=#{title},content=#{content}
+		<if test="photo!=null">
+		</if>
+		where board_id=#{board_id}
+	</update>
+	
+	<select id="selectNickname" parameterType="String" resultType="user">
+    	select * from user where username=#{username}
+    </select>
+    
+    <update id="updateNickname" parameterType="Map">
+       UPDATE user SET
+         nickname=#{nickname}
+      WHERE
+         username=#{username} 
+    </update>
+    
+</mapper>

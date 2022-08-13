@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.JobPostingMapper">
+	<select id="corpUserInfo" parameterType="String" resultType="user">
+    	select * from user where username=#{username}
+    </select>
+    <insert id="insertJob" parameterType="jobposting">
+    	insert into job_posting
+    	(corp_id, corp_idx, corp_name, title, job_exp, experience, education, salary, position, job_type, hire_type,
+		hire_num, preferred_tech, main_work, com_addr, end_date, job_posting_photo, writeday)
+		values 
+		(#{corp_id}, #{corp_idx}, #{corp_name}, #{title}, #{job_exp}, #{experience}, #{education}, #{salary}, #{position}, #{job_type}, #{hire_type},
+		#{hire_num}, #{preferred_tech}, #{main_work}, #{com_addr}, #{end_date}, #{job_posting_photo},now())
+    </insert>    
+    <select id="getNum" parameterType="String" resultType="jobposting">
+    	select * from job_posting where corp_id=#{corp_id} order by writeday desc limit 1
+    </select>    
+    <select id="jobDetail" parameterType="int" resultType="jobposting">
+    	select * from job_posting where num=#{num} 
+    </select>
+    <update id="updateJob" parameterType="jobposting">
+       UPDATE job_posting SET
+         title=#{title}, job_exp=#{job_exp}, experience=#{experience}, education=#{education}, salary=#{salary}, position=#{position}, job_type=#{job_type}, hire_type=#{hire_type},
+		 hire_num=#{hire_num}, preferred_tech=#{preferred_tech}, main_work=#{main_work}, com_addr=#{com_addr}, end_date=#{end_date}, job_posting_photo=#{job_posting_photo}, 
+		 writeday=now()
+		<if test="job_posting_photo!=null">
+			,job_posting_photo=#{job_posting_photo}
+		</if>
+      WHERE
+         num=#{num} 
+    </update>
+    <delete id="deleteJob" parameterType="int">
+    	delete from job_posting where num=#{num} 
+    </delete>
+    <update id="updateLiked" parameterType="Map">
+      UPDATE user SET 
+      <if test="com_liked==''">
+         com_liked=#{com_liked}
+      </if>
+      <if test="com_liked!=''">
+         com_liked=CONCAT(com_liked, ",", #{com_liked})
+      </if>
+       WHERE username=#{username}
+   </update>
+   <select id="unlike" parameterType="String" resultType="String">
+   		SELECT com_liked FROM user
+   		WHERE username=#{username}
+   </select>
+   <update id="merge" parameterType="Map">
+   		UPDATE user SET com_liked=#{com_liked}
+   		WHERE username=#{username}
+   </update> 
+   <update id="updateScrap" parameterType="Map">
+      UPDATE user SET 
+      <if test="job_scrap==''">
+         job_scrap=#{job_scrap}
+      </if>
+      <if test="job_scrap!=''">
+         job_scrap=CONCAT(job_scrap, ",", #{job_scrap})
+      </if>
+       WHERE username=#{username}
+   </update>
+   <select id="unscrap" parameterType="String" resultType="String">
+		SELECT job_scrap FROM user 
+		WHERE username=#{username}
+   </select>
+   <update id="mergeScrap" parameterType="Map">
+   		UPDATE user SET job_scrap=#{job_scrap}
+   		WHERE username=#{username}
+   </update>
+   <insert id="insertApply" parameterType="apply">
+   		INSERT INTO apply 
+   		(resume_idx, indiv_id, corp_idx, job_posting_idx, job_position, applyday)
+   		VALUES
+   		(#{resume_idx}, #{indiv_id}, #{corp_idx}, #{job_posting_idx}, #{job_position}, now())
+   </insert>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.ApplicantManagementMapper">
+    <select id="getNewResume" parameterType="Map" resultType="applicantResume">
+        select r.resume_idx, r.username as user_id, r.name as user_name, r.user_photo, r.user_email, r.tech_tags, 
+        a.num, a.job_position, a.applyday, a.progress, a.corp_idx, u.user_name as corp_name
+        from resume r
+        inner join apply a
+        on r.username = a.indiv_id
+        join User u
+        on a.corp_idx = u.corp_number
+        where a.corp_idx = #{corp_idx} and a.progress = #{progress} and u.corp_number = #{corp_idx}
+    </select>
+    <update id="updateProgress" parameterType="List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";"> 
+            update apply set progress = #{item.progress} where num = #{item.num} and corp_idx = #{item.corp_idx}
+        </foreach>
+    </update>
+    <!-- 알람 -->
+    <insert id="insertAlarm" parameterType="List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";"> 
+            insert into alarm (user_id, is_new, title, content, writeday, corp_idx, apply_num) values (#{item.user_id}, 0, #{item.title}, #{item.content}, now(), #{item.corp_idx}, #{item.apply_num})
+        </foreach>
+    </insert>
+    <!-- 이력서 좋아요 기능 -->
+    <insert id="insertCheckedHeart" parameterType="favorite">
+        insert into favorite (corp_id, apply_num) values (#{corp_id}, #{apply_num})
+    </insert>
+    <select id="getCheckedHearts" parameterType="int" resultType="int">
+        select apply_num from favorite where corp_id = #{corp_id}
+    </select>
+    <delete id="deleteCheckedHeart" parameterType="int">
+        delete from favorite where apply_num = #{apply_num}
+    </delete>
+</mapper>

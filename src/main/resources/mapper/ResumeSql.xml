@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.ResumeMapper">
+    <insert id="insertResume" parameterType="resume">
+    	insert into resume 
+    	(username,name,user_photo,user_birth,user_gender,user_email,user_hp,addr,addr_detail,user_addr,
+	   	job_type,edu_radio,sch_name,sch_region,sch_start,sch_end,sch_major,exp_radio,com_name,com_start,com_end,
+	   	quit_reason,com_department,com_position,com_region,com_salary,com_mainwork,total_year,com_cv,
+	   	pot_link,pot_file,tech_tags,intro,res_name,open_radio,writeday)
+		values 
+		(#{username},#{name},#{user_photo},#{user_birth},#{user_gender},#{user_email},#{user_hp},#{addr},#{addr_detail},#{user_addr},
+	   	#{job_type},#{edu_radio},#{sch_name},#{sch_region},#{sch_start},#{sch_end},#{sch_major},#{exp_radio},#{com_name},#{com_start},#{com_end},
+	   	#{quit_reason},#{com_department},#{com_position},#{com_region},#{com_salary},#{com_mainwork},#{total_year},#{com_cv},
+	   	#{pot_link},#{pot_file},#{tech_tags},#{intro},#{res_name},#{open_radio},now())
+    </insert>
+    <select id="resumeUserInfo" parameterType="String" resultType="user">
+    	select * from user where username=#{username}
+    </select>
+    <select id="resumeSaveDetail" parameterType="Map" resultType="resume_save">
+    	select * from resume_save where username=#{username} and resume_idx=#{resume_idx} 
+    </select>
+    <insert id="saveResume" parameterType="resume_save">
+    	insert into resume_save
+    	(username,name,user_photo,user_birth,user_gender,user_email,user_hp,addr,addr_detail,user_addr,
+	   	job_type,edu_radio,sch_name,sch_region,sch_start,sch_end,sch_major,exp_radio,com_name,com_start,com_end,
+	   	quit_reason,com_department,com_position,com_region,com_salary,com_mainwork,total_year,com_cv,
+	   	pot_link,pot_file,tech_tags,intro,res_name,open_radio,writeday)
+		values 
+		(#{username},#{name},#{user_photo},#{user_birth},#{user_gender},#{user_email},#{user_hp},#{addr},#{addr_detail},#{user_addr},
+	   	#{job_type},#{edu_radio},#{sch_name},#{sch_region},#{sch_start},#{sch_end},#{sch_major},#{exp_radio},#{com_name},#{com_start},#{com_end},
+	   	#{quit_reason},#{com_department},#{com_position},#{com_region},#{com_salary},#{com_mainwork},#{total_year},#{com_cv},
+	   	#{pot_link},#{pot_file},#{tech_tags},#{intro},#{res_name},#{open_radio},now())
+    </insert>
+    <select id="getIdx" parameterType="String" resultType="resume_save">
+    	select * from resume_save where username=#{username} order by writeday desc limit 1
+    </select>
+    <delete id="deleteResume" parameterType="int">
+    	delete from resume_save where resume_idx=#{resume_idx} 
+    </delete>
+    <update id="updateSaveResume" parameterType="resume_save">
+       UPDATE resume_save SET
+       sch_name=#{sch_name},sch_region=#{sch_region},sch_start=#{sch_start},sch_end=#{sch_end},
+       sch_major=#{sch_major},com_name=#{com_name},com_region=#{com_region},com_start=#{com_start},
+       com_end=#{com_end},quit_reason=#{quit_reason},com_position=#{com_position},com_department=#{com_department},
+       com_mainwork=#{com_mainwork},com_salary=#{com_salary},tech_tags=#{tech_tags},com_cv=#{com_cv},intro=#{intro},
+       pot_link=#{pot_link},pot_file=#{pot_file},res_name=#{res_name},writeday=now(),edu_radio=#{edu_radio},
+       exp_radio=#{exp_radio},open_radio=#{open_radio},total_year=#{total_year},job_type=#{job_type}
+      WHERE
+      resume_idx=#{resume_idx} 
+    </update>
+    <select id="resumeDetail" parameterType="int" resultType="resume">
+    	select * from resume where resume_idx=#{resume_idx} 
+    </select>
+    <select id="getDetailIdx" parameterType="String" resultType="resume">
+    	select * from resume where username=#{username} order by writeday desc limit 1
+    </select>
+    <update id="updateResume" parameterType="resume">
+       UPDATE resume SET
+       sch_name=#{sch_name},sch_region=#{sch_region},sch_start=#{sch_start},sch_end=#{sch_end},
+       sch_major=#{sch_major},com_name=#{com_name},com_region=#{com_region},com_start=#{com_start},
+       com_end=#{com_end},quit_reason=#{quit_reason},com_position=#{com_position},com_department=#{com_department},
+       com_mainwork=#{com_mainwork},com_salary=#{com_salary},tech_tags=#{tech_tags},com_cv=#{com_cv},intro=#{intro},
+       pot_link=#{pot_link},pot_file=#{pot_file},res_name=#{res_name},writeday=now(),edu_radio=#{edu_radio},
+       exp_radio=#{exp_radio},open_radio=#{open_radio},total_year=#{total_year},job_type=#{job_type}
+      WHERE
+      resume_idx=#{resume_idx} 
+    </update>
+    <select id="resumeList" parameterType="String" resultType="resume">
+    	select * from resume where username=#{username} order by writeday desc 
+    </select>
+</mapper>
