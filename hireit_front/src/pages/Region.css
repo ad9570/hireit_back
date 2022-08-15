@@ -38,7 +38,6 @@ div.inputs{
 
 .modal > section > footer button {
     text-align: center;
-    /* padding: 6px 12px; */
     color: #fff;
     background-color: #6c757d;
     border-radius: 5px;
@@ -49,7 +48,6 @@ div.inputs{
 Button.regionbtn {
     text-align: center;
     border-radius: 20px;
-    /* border-bottom: 10px; */
 }
 
 .modal button {
@@ -58,7 +56,6 @@ Button.regionbtn {
     text-align: center;
     border-radius: 20px;
     border-bottom: 10px;
-    /* border: 1px solid #f1f1f1; */
 }
 
 
@@ -66,8 +63,6 @@ Button.regionbtn {
     text-align: center;
     border-radius: 20px;
     border-bottom: 10px;
-    /* border-bottom: 10px; */
-    /* margin: 2px; */
 }
 
 .maybe{
@@ -75,5 +70,4 @@ Button.regionbtn {
     float: left;
     width: 200px;
     top: 580px;
-
 }
