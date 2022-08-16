@@ -132,7 +132,7 @@ public class MainController {
    }
    startNum=(currentPage-1)*perPage;
    no=totalCount-(currentPage-1)*perPage;
-   List<JobPostingDto> list= mainService.getQueryJob(q,startNum, perPage);
+   List<Map<String,Object>> list= mainService.getQueryJob(q,startNum, perPage);
    System.out.println("list : "+list);
    
    ArrayList<Integer> parr=new ArrayList<>();

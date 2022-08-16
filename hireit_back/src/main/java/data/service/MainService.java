@@ -63,7 +63,7 @@ public class MainService implements MainServiceInter {
     }
     
     @Override
-    public List<JobPostingDto> getQueryJob(String keyword, int start, int perpage) {
+    public List<Map<String,Object>> getQueryJob(String keyword, int start, int perpage) {
        
         if(keyword == ""){
              return null;

@@ -10,7 +10,7 @@ public interface MainServiceInter {
     // public List<Map<String,Object>> getQueryCorp(String q);
     // public List<Map<String,Object>> getQueryJob(String q);
     public List<Map<String,Object>> getQueryCorp(String q,int start,int perpage);
-    public List<JobPostingDto> getQueryJob(String q,int start,int perpage);
+    public List<Map<String,Object>> getQueryJob(String q,int start,int perpage);
     public int getTotalCount (String keyword);
     public int getTotalCount2 (String keyword);
 
