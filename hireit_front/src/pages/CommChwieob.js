@@ -13,7 +13,7 @@ const CommChwieob=()=>{
  
     // const [test, setTest] = useState('')
   
-   
+
     //url 선언
     let url = "http://localhost:9001/board/alllist?category_name=" +"취준" ;
     let photoUrl = "http://localhost:9001/save/";

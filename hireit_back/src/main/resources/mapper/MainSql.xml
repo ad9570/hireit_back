@@ -2,18 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.MainMapper">
     <select id="getQueryAboutCorp" parameterType="String" resultType="Map">
-        select corp_number as corpIdx, user_name as corpName
-        from User
-        where user_name like CONCAT('%',#{keyword},'%') and role = 1
-        LIMIT 5
+        select corp_number as corpIdx, name as corpName
+        from user
+        where name like CONCAT('%',#{keyword},'%') and role = 2
     </select>
     <select id="getQueryAboutJob" parameterType="String" resultType="Map">
         select num as jobPostingIdx, title as jobPostingTitle
         from job_posting
         where title like CONCAT('%',#{keyword},'%')
-        LIMIT 5
     </select>
-    <select id="getQueryCorp" parameterType="String" resultType="Map">
+    <!-- <select id="getQueryCorp" parameterType="String" resultType="Map">
         select corp_number as corpIdx, user_name as corpName, user_addr as corpAddr
         from User
         where user_name like CONCAT('%',#{keyword},'%') and role = 1
@@ -22,5 +20,18 @@
         select num as jobPostingIdx, title as jobPostingTitle, corp_name as corpName, job_type as jobType
         from job_posting
         where title like CONCAT('%',#{keyword},'%')
+    </select> -->
+    <select id="getQueryCorp" parameterType="Map" resultType="Map">
+        select corp_number as corpIdx, name as corpName, addr as corpAddr
+        from user
+        where name like CONCAT('%',#{keyword},'%') and role = 2 order by user_id DESC LIMIT #{start},#{perpage}
     </select>
+    <select id="getQueryJob" parameterType="Map" resultType="jobposting">
+        select num as jobPostingIdx, title as jobPostingTitle, corp_name as corpName, job_type as jobType
+        from job_posting
+        where title like CONCAT('%',#{keyword},'%') order by num DESC LIMIT #{start},#{perpage}
+    </select>
+    <select id="getTotalCount" parameterType="String" resultType="int"> select count(*) from user where name like CONCAT('%',#{keyword},'%') </select>
+   <select id="getTotalCount2" parameterType="String" resultType="int"> select count(*) from job_posting where title like CONCAT('%',#{keyword},'%') </select>
+
 </mapper>

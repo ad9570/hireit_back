@@ -19,8 +19,8 @@ div.right{
     border-radius: 20px;
     /* width: 300px; */
     position: absolute;
-    top: 2%;
-    left: 62%;
+    top: 9%;
+    left: 61%;
 }
 
 div.right img{
@@ -69,21 +69,21 @@ div.j_detail{
     margin-left: 180px;
 }
 
+div.j_detail table{
+    width: 600px;
+}
+
 div.JobPostingDetail h5{
     margin-left: 180px;
 }
 
 div.j_detail table{
-    font-size: 15px;
+    font-size: 12px;
 }
 
-div.j_detail table tr{
-    height: 20px;
-}
-
-table.jDetail tr td {
-    width: 150px;
-}
+div.j_detail table tr td {
+    width: 25%;
+} 
 
 div.myMap{
     border: 3px solid rgb(225, 225, 225);
@@ -101,8 +101,8 @@ img.templete{
 div.t_templete{
     width: 650px;
     position: absolute;
-    top: 105%;
-    left: 365px;
+    top: 90%;
+    left: 29%;
 }
 
 table.t_templete tr td{
@@ -144,16 +144,13 @@ span.s{
 div.t_templete_p{
     width: 650px;
     position: absolute;
-    top: 70%;
-    left: 420px;
+    top: 60%;
+    left: 33%;
     font-size: 55px;
     width: 500px;
     color: white;
     text-align: center;
-}
-
-div.t_templete_p p{
-      font-family: 'SBAggroB';
+    font-family: 'SBAggroB';
 }
 
 div.end{

@@ -1,3 +1,4 @@
+/*global kakao */
 import React, { useEffect, useState } from 'react';
 import 'pages/job_posting/JobPostingDetail.css';
 

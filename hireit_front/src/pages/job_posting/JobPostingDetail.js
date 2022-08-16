@@ -1,14 +1,16 @@
+/*global kakao */
 import React, { useEffect, useState } from 'react';
 import 'pages/job_posting/JobPostingDetail.css';
-import KaokaoMap from 'pages/job_posting/KakaoMap';
 import templete from 'assets/templete.jpg';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import CorpInfo from 'pages/job_posting/CorpInfo';
 import DetailBtn from 'pages/job_posting/DetailBtn';
 import IndivDetailBtn from 'pages/job_posting/IndivDetailBtn';
+import KaokaoMap from './KakaoMap';
 
 const JobPostingDetail = () => {
+
 
     const { num, corp_id } = useParams();
     // const [corp_id,setCorp_id]=useState('');
@@ -38,7 +40,7 @@ const JobPostingDetail = () => {
     const [liked, setLiked] = useState(false);
     const [unlike, setUnlike] = useState(true);
     const [job_scrap, setJob_scrap] = useState([]);
-    let username = localStorage.username;
+    const username = localStorage.id;
 
     let today = new Date(), //현재 날짜 가져오기
         dday = new Date(end_date).getTime(), //디데이
@@ -49,9 +51,10 @@ const JobPostingDetail = () => {
     const Navi = useNavigate();
     let jobInfoURL = `${process.env.REACT_APP_SPRING_URL}jobposting/detail?num=${num}`;
     let userInfoURL = `${process.env.REACT_APP_SPRING_URL}jobposting/userinfo?username=${corp_id}`;
+    let userURL = `${process.env.REACT_APP_SPRING_URL}jobposting/userinfo?username=${username}`;
     let photoUrl = `${process.env.REACT_APP_SPRING_URL}save/`;
-    let scrapUrl = `${process.env.REACT_APP_SPRING_URL}jobposting/updatescrap?username=${corp_id}&job_scrap=${num}`;
-    let unscrapUrl = `${process.env.REACT_APP_SPRING_URL}jobposting/unscrap?username=${corp_id}&num=${num}`;
+    let scrapUrl = `${process.env.REACT_APP_SPRING_URL}jobposting/updatescrap?username=${username}&job_scrap=${num}`;
+    let unscrapUrl = `${process.env.REACT_APP_SPRING_URL}jobposting/unscrap?username=${username}&num=${num}`;
 
     //회사정보 데이터
     const Info = () => {
@@ -61,18 +64,19 @@ const JobPostingDetail = () => {
             setCorp_email(res.data.user_email);
             setCorp_hp(res.data.user_hp);
             setCorp_addr(res.data.addr);
+        })
+
+        axios.get(userURL).then(res => {
             setJob_scrap(res.data.job_scrap);
             setCom_liked(res.data.com_liked);
         })
-
-        console.log(corp_addr)
 
         if (job_scrap.indexOf(num) !== -1) {
             setLiked(true);
             setUnlike(false);
         }
     }
-    // console.log(corp_id)
+
     //채용공고 데이터 
     const jobInfo = () => {
         axios.get(jobInfoURL).then(res => {
@@ -113,7 +117,7 @@ const JobPostingDetail = () => {
                     <table className='jDetail'>
                         <tbody>
                             <tr>
-                                <td><b>경력구분</b></td>
+                                <td><b class>경력구분</b></td>
                                 <td>{job_exp} {experience}년 이상</td>
                                 <td><b>고용형태</b></td>
                                 <td>{hire_type}</td>
@@ -144,9 +148,7 @@ const JobPostingDetail = () => {
                 <img alt='' src={templete} className='templete' />
                 <br /><br />
                 <div className='t_templete_p'>
-                    <p>
-                        {corp_name} <br />{job_exp} 채용공고
-                    </p>
+                        {corp_name} <br />{job_exp} 채용공고     
                 </div>
                 <div className='t_templete'>
                     <table className='table t_templete'>
@@ -190,9 +192,9 @@ const JobPostingDetail = () => {
                 <h5>마감일</h5>
                 <div className='end'>
                     <p>
-                        <b>D-{result}</b>
+                        { result > 0 ? <b>D-{result}</b> : <b>마감</b>
+                        }
                         {end_date}
-
                     </p>
                 </div>
                 {username !== corp_id &&
@@ -209,10 +211,10 @@ const JobPostingDetail = () => {
                             }
                             {liked &&
                                 <button type='button' className='btn btn-warning' onClick={() => {
-                                    setUnlike(true);
-                                    setLiked(false);
                                     axios.get(unscrapUrl).then(res => {
                                         alert("채용공고 스크랩이 취소되었습니다.");
+                                        setLiked(false);
+                                        setUnlike(true);
                                     })
                                 }}>채용공고 스크랩 취소</button>
                             }

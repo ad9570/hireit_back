@@ -178,6 +178,8 @@ const ContentBox = styled.div`
 const SearchResult = () => {
     let [searchParams, setSearchParams] = useSearchParams();
     
+    const corpInfo={};
+    const jobInfo={};
     const [corp, setCorp] = useState([]);
     const [job, setJob] = useState([]);
 
@@ -189,22 +191,24 @@ const SearchResult = () => {
 
         axios.get(searchCorpUrl)
         .then(res => {
-            setCorp(res.data);
-            console.log("res.data",res.data)
+            setCorp(res.data)
+            // setCorp(corpInfo.list)
         })
         .catch(err => {
-            console.log("1연관검색어 검색 실패여유ㅠㅠ")
+            console.log("1연관검색어 검색 실패")
         })
+        console.log("corpInfo",corp)
 
         axios.get(searchJobUrl)
         .then(res => {
-            setJob(res.data);
-            console.log("res.data",res.data)
-
+            setJob(res.data)
+            // setJob(jobInfo.list)
+            
         })
         .catch(err => {
-            console.log("2연관검색어 검색 실패여유ㅠㅠ")
+            console.log("2연관검색어 검색 실패")
         })
+        console.log("jobInfo",job)
     },[])
     return (
         <div style={{ display: 'flex', justifyContent: 'center', minHeight:'100vh' }}>
@@ -215,12 +219,12 @@ const SearchResult = () => {
                 </SearchWord>
                 <hr/>
                 <CardWrap>
-                    <Title>기업 {corp.length}</Title>
+                    {/* <Title>기업 {corp.list.length}</Title> */}
                     <Cards>
                         {
-                            corp==0?
+                            corp&&corp.list==null?
                             <div>"{searchParams.get('q')}" 검색어에 해당하는 기업이 존재하지 않습니다.</div>
-                            :corp.map((data,idx) => (
+                            :corp.list.map((data,idx) => (
                                 <CorpCard>
                                     <a href="">
                                         <div style={{display:'flex'}}>
@@ -245,12 +249,12 @@ const SearchResult = () => {
                 </CardWrap>
                 <hr/>
                 <CardWrap>
-                    <Title>채용정보 {job.length}</Title>
+                    {/* <Title>채용정보 {job.list.length}</Title> */}
                     <Cards>
                         {
-                            job==0?
+                            job&&job.list==null?
                             <div>"{searchParams.get('q')}" 검색어에 해당하는 채용정보가 존재하지 않습니다.</div>
-                            :job.map((data,idx)=>(
+                            :job.list.map((data,idx)=>(
                                 <Card>
                                     <a href="">
                                         <div className="img_box">
@@ -264,7 +268,8 @@ const SearchResult = () => {
                                         </a>
                                     </ContentBox>
                                 </Card>
-                            ))
+                            )
+                            )
                         }
                     </Cards>
                 </CardWrap>

@@ -116,7 +116,7 @@ const ResumeStateButton = ({ setCat }) => {
     const datas = { "list": checkedList, "title": title, "content": content }
     console.log('checkedList',checkedList)
     const testList =[];
-    checkedList.map(data=>{return testList.push({user_id:data.user_id, title:title, content:content.replace("[지원자명]",data.user_name).replace("[회사명]",data.corp_name).replace("[포지션명]",data.job_position), corp_idx:data.corp_idx, apply_num:data.num})})
+    checkedList.map(data=>{return testList.push({address:data.user_email,corpName:data.corp_name, position:data.job_position,user_id:data.user_id, title:title, content:content.replace("[지원자명]",data.user_name).replace("[회사명]",data.corp_name).replace("[포지션명]",data.job_position), corp_idx:data.corp_idx, apply_num:data.num})})
     
     console.log('testList',testList)
 
@@ -150,7 +150,8 @@ const ResumeStateButton = ({ setCat }) => {
                         <div className="modal-body" style={{ display: 'flex', jestifyContents: 'center', alignItems: 'center' }}>
                             <ContentWrapper>
                                 <Contents>
-                                    <textarea name="" style={{ width: '440px', height: '390px', outline: 'none', border: '0' }} id="" value={content}>
+                                    <textarea name="" style={{ width: '440px', height: '390px', outline: 'none', border: '0' }} id="" value={content}
+                                    onChange={(e)=>{setContent(e.target.value)}}>
                                     </textarea>
                                 </Contents>
                                 

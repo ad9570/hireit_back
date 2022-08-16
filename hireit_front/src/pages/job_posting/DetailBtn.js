@@ -14,7 +14,9 @@ const DetailBtn = () => {
     }
     return (
         <div className='btn_s'>
-            <button type='button' className='btn btn-light'>목록</button>
+            <button type='button' className='btn btn-light' onClick={()=>{
+                window.history.go(-1); 
+            }}>이전</button>
             <button type='button' className='btn btn-dark' onClick={updateJob}>수정</button>
         </div>
     );

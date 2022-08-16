@@ -1,10 +1,12 @@
 package data.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,8 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import data.dto.AlarmDto;
 import data.dto.ApplicantResume;
+import data.dto.FavoriteDto;
 import data.mapper.ApplicantManagementMapper;
-import data.service.ApplicantManagementService;
+import data.service.ApplicnatManagementService;
 import data.service.MailService;
 
 @RestController
@@ -30,14 +33,14 @@ public class ApplicantManagementController {
     private MailService mailService;
     
     @Autowired
-    private ApplicantManagementService applicnatManagementService;
+    private ApplicnatManagementService applicnatManagementService;
     
     @Autowired
     private ApplicantManagementMapper applicantManagementMapper;
 
     //이력서 가져오기
     @GetMapping("/getNewResume")
-    public List<ApplicantResume> getNewResume(@RequestParam int corp_idx, @RequestParam int progress){
+    public List<ApplicantResume> getNewResume(@RequestParam String corp_idx, @RequestParam int progress){
         Map<String, Object> map = applicnatManagementService.getNewResume(corp_idx, progress);
 
         return applicantManagementMapper.getNewResume(map);
@@ -46,7 +49,6 @@ public class ApplicantManagementController {
     //이력서 상태 변경 (0>1 또는 0>3)
     @GetMapping("/updateResumeProgress")
     public void updateResumeProgress(@RequestParam List<Integer> num, @RequestParam int corp_idx, @RequestParam int toProgress, @RequestParam(required = false, defaultValue = "false") boolean alarm){
-        System.out.println("applicantResume: " + num);
         
         List<ApplicantResume> resumeList = new ArrayList<>();
         Iterator<Integer> it = num.iterator();
@@ -66,30 +68,32 @@ public class ApplicantManagementController {
 
     }
 
-    @PostMapping("insertAlarm")
+    @PostMapping("/insertAlarm")
     public void insertAlarm(@RequestBody List<AlarmDto> alarmList){
-        System.out.println("alarmList: " + alarmList);
-
+        mailService.sendMail(alarmList);
         applicantManagementMapper.insertAlarm(alarmList);
     }
 
     //하트 체크
     @PostMapping("/insertCheckedHeart")
-    public void insertCheckedHeart(@RequestParam int corp_id, @RequestParam int apply_num){
+    public void insertCheckedHeart(@RequestParam String corp_id, @RequestParam int apply_num){
         applicantManagementMapper.insertCheckedHeart(corp_id, apply_num);
     }
 
     //체크된 하트 리스트
     @GetMapping("/getCheckedHeart")
-    public List<Integer> getCheckedHearts (@RequestParam int corp_id){
+    public List<Integer> getCheckedHearts (@RequestParam String corp_id){
         return applicantManagementMapper.getCheckedHearts(corp_id);
     }
 
     //하트 삭제
     @DeleteMapping("/deleteCheckedHeart")
-    public void deleteCheckedHeart(@RequestParam int corp_id, @RequestParam int apply_num){
-        System.out.println("corp_id:"+corp_id+", apply_num:"+apply_num );
+    public void deleteCheckedHeart(@RequestParam String corp_id, @RequestParam int apply_num){
         applicantManagementMapper.deleteCheckedHeart(apply_num);
     }
-    
+
+    @GetMapping("/getCorpIdx")
+    public int getCorpIdx (@RequestParam String corp_name){
+        return applicantManagementMapper.getCorpIdx(corp_name);
+    }
 }

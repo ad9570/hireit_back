@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.ApplicantManagementMapper">
     <select id="getNewResume" parameterType="Map" resultType="applicantResume">
-        select r.resume_idx, r.username as user_id, r.name as user_name, r.user_photo, r.user_email, r.tech_tags, 
-        a.num, a.job_position, a.applyday, a.progress, a.corp_idx, u.user_name as corp_name
-        from resume r
-        inner join apply a
-        on r.username = a.indiv_id
-        join User u
-        on a.corp_idx = u.corp_number
-        where a.corp_idx = #{corp_idx} and a.progress = #{progress} and u.corp_number = #{corp_idx}
+        select r.resume_idx, r.resume_idx, r.res_name as title, r.username as user_id, r.name as user_name, r.user_email, r.tech_tags,
+        a.num, a.job_position, a.applyday, a.progress, a.corp_idx, u.name as corp_name
+        from apply a
+        join resume r
+        on a.resume_idx = r.resume_idx
+        join user u
+        on a.corp_idx = u.user_id
+        where u.username = #{corp_idx} and a.progress = #{progress}
+        order by a.applyday desc
     </select>
     <update id="updateProgress" parameterType="List">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";"> 
@@ -26,10 +27,13 @@
     <insert id="insertCheckedHeart" parameterType="favorite">
         insert into favorite (corp_id, apply_num) values (#{corp_id}, #{apply_num})
     </insert>
-    <select id="getCheckedHearts" parameterType="int" resultType="int">
+    <select id="getCheckedHearts" parameterType="String" resultType="int">
         select apply_num from favorite where corp_id = #{corp_id}
     </select>
     <delete id="deleteCheckedHeart" parameterType="int">
         delete from favorite where apply_num = #{apply_num}
     </delete>
+    <select id="getCorpIdx" parameterType="String" resultType="int">
+        select corp_number from user where username = #{corp_name}
+    </select>
 </mapper>

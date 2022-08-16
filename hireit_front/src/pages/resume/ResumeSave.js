@@ -458,8 +458,8 @@ const ResumeSave = () => {
                                 </td>
                             </tr>
                             <tr>
-                                {edu_radio === '2' ? <Major sch_major={sch_major} setSch_major={setSch_major} /> : <></>}
-                            </tr>
+                                {edu_radio === '2' || edu_radio === 2 ?  <Major sch_major={sch_major} setSch_major={setSch_major} /> : <></>}    
+                           </tr>
                         </tbody>
                     </table>
                     {/* 경력사항 */}

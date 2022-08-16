@@ -1,38 +1,13 @@
 import React, { useRef, Component, useState, useEffect } from 'react';
 import 'pages/resume/ResumeDetail.css';
 import ReactToPrint from 'react-to-print';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import ResumeInput from 'pages/resume/ResumeInput';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { set } from 'react-hook-form';
-import PDFViewer from 'pages/resume/PDFViewer';
 
 const ResumeDetail = () => {
-    const componentRef = useRef(); // 스캔 구역 지정 
-    //이미지 캡쳐 후 PDF 변환
-    const exportPDF = () => {
-        const input = document.getElementById("PDF")
-        html2canvas(input, { logging: true, letterRendering: 1, useCORS: true }).then(canvas => {
-            const imgWidth = 310;
-            const imgHeight = canvas.height * imgWidth / canvas.width;
-            const pageHeight = 280;
-            let heightLeft = imgHeight;
-            const imgData = canvas.toDataURL('img/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            let position = 0;
-            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
-            pdf.save("resume.pdf");
-        })
-    }
+    const componentRef = useRef(); // 스캔 구역 지정 }
 
     //불러올 데이터 담을 변수 
     const [username, setUsername] = useState('');
@@ -90,7 +65,7 @@ const ResumeDetail = () => {
     //URL
     const Navi = useNavigate();
     let detailUrl = `${process.env.REACT_APP_SPRING_URL}resume/detail?resume_idx=${resume_idx}`;
-    let photoUrl = `${process.env.REACT_APP_SPRING_URL}save`;
+    let photoUrl = `${process.env.REACT_APP_SPRING_URL}save/`;
 
     //resume 테이블에서 데이터 가져오기
     const resumeInfo = () => {
@@ -153,7 +128,7 @@ const ResumeDetail = () => {
             }
         })
     }
-    console.log(job_type);
+
     //처음 랜더링시 resumeInfo 함수 호출 
     useEffect(() => {
         resumeInfo();
@@ -161,8 +136,13 @@ const ResumeDetail = () => {
 
     //총경력 구하는 함수 
     const changeNum = Number(arr.total_year[0]) + Number(arr.total_year[1]);
+    const changeSec = Number(arr.total_year[0]);
     let Year = 0;
     let Month = changeNum;
+
+    if(isNaN(arr.total_year[1])) {
+        Month = changeSec;
+    } 
     // 12개월 => 1년으로 환산 
     while (Month > 11) {
         Month -= 12;
@@ -183,7 +163,7 @@ const ResumeDetail = () => {
                             </tr>
                             <tr>
                                 <td className='photo2' rowSpan={7}>
-                                    <img alt='' src={photoUrl + user_photo} />
+                                    <img alt='' src={photoUrl + user_photo}/>
                                 </td>
                             </tr>
                             <tr className='infoDetail'>
@@ -353,7 +333,6 @@ const ResumeDetail = () => {
                                             <><a href={pot_link}>{pot_link}</a><br /></>
                                         }
                                         {pot_file}
-                                        {/* <PDFViewer photoUrl={photoUrl} pot_file={pot_file} /> */}
                                     </td>
                                 </tr>
                             </tbody>
@@ -396,23 +375,23 @@ const ResumeDetail = () => {
                 <div className='detailSideBar'>
                     <table className='detailSideBar table table-hover'>
                         <tbody>
-                            <tr>
-                                <td className='noHover'>최근 수정일&emsp;<span>{writeday}</span></td>
+                            <tr className='steelB'>
+                                <td className='required_edit'>최근 수정일<br/><span>{writeday}</span></td>
                             </tr>
                             <tr>
-                                <td className='required_edit' onClick={() => {
+                                <td className='required' onClick={() => {
                                     Navi("/resume/update/" + user_id + "/" + resume_idx);
                                 }}>이력서 수정</td>
                             </tr>
                             <tr>
                                 <ReactToPrint
-                                    trigger={() => <td className='required'>프린트 하기</td>}
+                                    trigger={() => <td className='required'>프린트/PDF 저장</td>}
                                     content={() => componentRef.current}
                                 />
                             </tr>
-                            <tr>
+                            {/* <tr>
                                 <td className='required' onClick={() => exportPDF()}>PDF로 저장</td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>

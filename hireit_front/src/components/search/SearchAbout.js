@@ -11,6 +11,7 @@ const SearchResult = styled.div`
     border: 1px solid transparent;
     box-shadow: 0 1px 5px 1px rgb(40 40 60 / 10%);
     border-radius:3px;
+    z-index:999;
     // padding:16px;
     p{
         margin-bottom: 6px;

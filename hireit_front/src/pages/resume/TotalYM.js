@@ -3,10 +3,14 @@ import 'pages/resume/ResumeInput.css';
 
 const TotalYM = ({ arr, setArr }) => {
     const [add, setAdd] = useState(false);
-    const changeNum = Number(arr.total_year[0] + arr.total_year[1]);
+    const changeFir = Number(arr.total_year[0] + arr.total_year[1]);
+    const changeSec = Number(arr.total_year[0]);
     // console.log(changeNum);
     let Year = 0;
-    let Month = changeNum;
+    let Month;
+    if( arr.total_year[1].isNaN) {
+        Month = changeSec;
+    }
 
     while (Month > 11) {
         Month -= 12;
