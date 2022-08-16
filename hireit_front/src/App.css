@@ -665,7 +665,7 @@ color:red;
 }
 h3{
 height: 20px;
-width: 20px;
+/* width: 20px; */
 }
 .button:hover{
   transform: scale(1.1);

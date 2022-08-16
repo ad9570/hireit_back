@@ -21,5 +21,8 @@ public class AlarmDto {
     @JsonFormat(pattern = "yyyy년 MM월 dd일 HH:mm:ss", timezone = "Asia/Seoul")
     private Timestamp writeday;
     private String content;
-    
+
+    private String address;
+    private String corpName;
+    private String position;
 }

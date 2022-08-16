@@ -89,7 +89,7 @@ const NewResume = ({ resumeList, setCat }) => {
 
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-    // 전체 체크 클릭 시 발생하는 함수
+    // 전체 체크 클릭 시 호출되는 함수
     const onCheckedAll = useCallback(
         (checked) => {
             if (checked) {
@@ -105,7 +105,7 @@ const NewResume = ({ resumeList, setCat }) => {
         [resumeList]
     );
 
-    // 개별 체크 클릭 시 발생하는 함수
+    // 개별 체크 클릭 시 호출되는 함수
     const onCheckedElement = useCallback(
         (checked, list, userId) => {
             if (checked) {

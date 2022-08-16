@@ -178,6 +178,8 @@ const ContentBox = styled.div`
 const SearchResult = () => {
     let [searchParams, setSearchParams] = useSearchParams();
     
+    const corpInfo=[];
+    const jobInfo=[];
     const [corp, setCorp] = useState([]);
     const [job, setJob] = useState([]);
 
@@ -189,21 +191,21 @@ const SearchResult = () => {
 
         axios.get(searchCorpUrl)
         .then(res => {
-            setCorp(res.data);
+            
             console.log("res.data",res.data)
         })
         .catch(err => {
-            console.log("1연관검색어 검색 실패여유ㅠㅠ")
+            console.log("1연관검색어 검색 실패")
         })
 
         axios.get(searchJobUrl)
         .then(res => {
-            setJob(res.data);
+            
             console.log("res.data",res.data)
 
         })
         .catch(err => {
-            console.log("2연관검색어 검색 실패여유ㅠㅠ")
+            console.log("2연관검색어 검색 실패")
         })
     },[])
     return (
@@ -218,11 +220,11 @@ const SearchResult = () => {
                     <Title>기업 {corp.length}</Title>
                     <Cards>
                         {
-                            corp==0?
+                            corp&&corp==0?
                             <div>"{searchParams.get('q')}" 검색어에 해당하는 기업이 존재하지 않습니다.</div>
                             :corp.map((data,idx) => (
                                 <CorpCard>
-                                    <a href="">
+                                    {/* <a href="">
                                         <div style={{display:'flex'}}>
                                             <div className='corpImg'
                                                 style={{backgroundImage: `url(${corpImg})`}}>
@@ -237,7 +239,7 @@ const SearchResult = () => {
                                                 팔로우
                                             </span>
                                         </CorpButton>
-                                    </a>
+                                    </a> */}
                                 </CorpCard>
                             ))
                         }
@@ -248,23 +250,24 @@ const SearchResult = () => {
                     <Title>채용정보 {job.length}</Title>
                     <Cards>
                         {
-                            job==0?
+                            job&&job==0?
                             <div>"{searchParams.get('q')}" 검색어에 해당하는 채용정보가 존재하지 않습니다.</div>
-                            :job.map((data,idx)=>(
-                                <Card>
-                                    <a href="">
-                                        <div className="img_box">
-                                            <img src={corpImg} alt="" className="thumns-img" />
-                                        </div>
-                                    </a>
-                                    <ContentBox>
-                                        <a class="link" href="" target="_blank" onclick="GA.event('main_test_v1','company_story_title', { label: '7' });">
-                                            <h3 class="title">{data.jobPostingTitle}</h3>
-                                            <div class="desc">{data.jobType}</div>
-                                        </a>
-                                    </ContentBox>
-                                </Card>
-                            ))
+                            :job.map((data,idx)=>(<></>
+                                // <Card>
+                                //     <a href="">
+                                //         <div className="img_box">
+                                //             <img src={corpImg} alt="" className="thumns-img" />
+                                //         </div>
+                                //     </a>
+                                //     <ContentBox>
+                                //         <a class="link" href="" target="_blank" onclick="GA.event('main_test_v1','company_story_title', { label: '7' });">
+                                //             <h3 class="title">{data.jobPostingTitle}</h3>
+                                //             <div class="desc">{data.jobType}</div>
+                                //         </a>
+                                //     </ContentBox>
+                                // </Card>
+                            )
+                            )
                         }
                     </Cards>
                 </CardWrap>
