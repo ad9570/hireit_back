@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import "./Login.scss";
+import "./Login.scss";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import img from "../assets/image/logo.png";
@@ -34,7 +34,7 @@ const Login = () => {
       }
 
     return(
-        <div className="container">
+        <div className="container loginMain">
             <div className="loginLogo">
                 <img alt="" src={img} onClick={() => {nav("/")}}/>
             </div>
