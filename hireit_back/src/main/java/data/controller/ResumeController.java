@@ -20,12 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 import data.dto.MemberDto;
 import data.dto.ResumeDto;
 import data.dto.ResumeSaveDto;
+import data.mapper.ResumeMapper;
 import data.service.ResumeService;
 import util.FileUtil;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/resume")
+@RequestMapping("resume")
 public class ResumeController {
 	
 	@Autowired
@@ -130,5 +131,4 @@ public class ResumeController {
 	public List<ResumeDto> resumeList(@RequestParam String username) {
 		return resumeService.resumeList(username);
 	}
-	
 }

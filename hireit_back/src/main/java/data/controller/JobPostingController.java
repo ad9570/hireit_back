@@ -1,6 +1,5 @@
 package data.controller;
 
-
 import java.io.File;
 import java.io.IOException;
 
@@ -22,6 +21,7 @@ import data.dto.JobPostingDto;
 import data.dto.MemberDto;
 import data.service.JobPostingService;
 import util.FileUtil;
+
 
 @RestController
 @CrossOrigin
@@ -138,5 +138,4 @@ public class JobPostingController {
 	public void insertApply(@RequestBody ApplyDto dto) {
 		jobpostingService.insertApply(dto);
 	}
-	
 }

@@ -76,5 +76,4 @@ public class ResumeService implements ResumeServiceInter {
 	public List<ResumeDto> resumeList(String username) {
 		return resumeMapper.resumeList(username);
 	}
-	
 }
