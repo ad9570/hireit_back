@@ -32,22 +32,6 @@ public class MainService implements MainServiceInter {
         return mainMapper.getQueryAboutJob(keyword);
     }
 
-	// @Override
-	// public List<Map<String, Object>> getQueryCorp(String keyword) {
-	// 	if(keyword == ""){
-    //         return null;
-    //     }
-    //     return mainMapper.getQueryCorp(keyword);
-	// }
-
-	// @Override
-	// public List<Map<String, Object>> getQueryJob(String keyword) {
-	// 	if(keyword == ""){
-    //         return null;
-    //     }
-    //     return mainMapper.getQueryJob(keyword);
-	// }
-
     @Override
     public List<Map<String, Object>> getQueryCorp(String keyword, int start, int perpage) {
        // TODO Auto-generated method stub
@@ -72,10 +56,6 @@ public class MainService implements MainServiceInter {
         map.put("start", start);
         map.put("perpage", perpage);
         map.put("keyword",keyword );
-        System.out.println("service mapper : " + mainMapper.getQueryCorp(map));
-        System.out.println("service keyword : " + keyword);
-        System.out.println("service perpage : " + perpage);
-        System.out.println("service start : " + start);
          return mainMapper.getQueryJob(map);
     }
 

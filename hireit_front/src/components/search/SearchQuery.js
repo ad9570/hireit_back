@@ -71,7 +71,7 @@ const SearchQuery = ({ st }) => {
                                     setKeyword(e.target.value);
                                 }}/>
                         </div>
-                        <a href={`/search?q=${keyword}`}>
+                        <a href={`/search?q=${keyword}&corp=1&job=1`}>
                             <button type="button" className="btn btn-outline-primary">검색</button>
                         </a>
                     </div>

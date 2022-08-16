@@ -24,12 +24,12 @@
     <select id="getQueryCorp" parameterType="Map" resultType="Map">
         select corp_number as corpIdx, name as corpName, addr as corpAddr
         from user
-        where name like CONCAT('%',#{keyword},'%') and role = 2 order by user_id DESC LIMIT #{start},#{perpage}
+        where name like CONCAT('%',#{keyword},'%') and role = 2 order by user_id DESC <!-- LIMIT #{start},#{perpage} -->
     </select>
-    <select id="getQueryJob" parameterType="Map" resultType="jobposting">
+    <select id="getQueryJob" parameterType="Map" resultType="Map">
         select num as jobPostingIdx, title as jobPostingTitle, corp_name as corpName, job_type as jobType
         from job_posting
-        where title like CONCAT('%',#{keyword},'%') order by num DESC LIMIT #{start},#{perpage}
+        where title like CONCAT('%',#{keyword},'%') order by num DESC <!-- LIMIT #{start},#{perpage} -->
     </select>
     <select id="getTotalCount" parameterType="String" resultType="int"> select count(*) from user where name like CONCAT('%',#{keyword},'%') </select>
    <select id="getTotalCount2" parameterType="String" resultType="int"> select count(*) from job_posting where title like CONCAT('%',#{keyword},'%') </select>

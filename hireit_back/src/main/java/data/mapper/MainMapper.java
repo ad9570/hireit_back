@@ -11,8 +11,6 @@ public interface MainMapper {
 	
     public List<Map<String,Object>> getQueryAboutCorp(String keyword);
     public List<Map<String,Object>> getQueryAboutJob(String keyword);
-    // public List<Map<String,Object>> getQueryCorp(String keyword);
-    // public List<Map<String,Object>> getQueryJob(String keyword);
     public List<Map<String,Object>> getQueryCorp(Map<String, Object>map);
     public List<Map<String,Object>> getQueryJob(Map<String, Object>map);
     public int getTotalCount (String keyword);

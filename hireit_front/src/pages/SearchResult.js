@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import corpImg from '../images/corp.png';
 
@@ -22,7 +22,10 @@ const CardWrap = styled.div`
 const Cards = styled.ul`
     display:flex;
     flex-wrap:wrap;
-   
+    padding-left:0;
+    >div{
+        margin:50px auto;
+    }
 `;
 const Title = styled.h4`
 
@@ -177,101 +180,112 @@ const ContentBox = styled.div`
 
 const SearchResult = () => {
     let [searchParams, setSearchParams] = useSearchParams();
-    
-    const corpInfo={};
-    const jobInfo={};
+
+    const corpInfo = [];
+    const jobInfo = [];
     const [corp, setCorp] = useState([]);
     const [job, setJob] = useState([]);
+    const [test, setTest] = useState([]);
 
-    const corpList=[];
-    
-    const searchCorpUrl = process.env.REACT_APP_SPRING_URL + "searchCorp?q=" + searchParams.get('q');
-    const searchJobUrl = process.env.REACT_APP_SPRING_URL + "searchJob?q=" + searchParams.get('q');
-    useEffect(()=>{
+    const corpList = [];
+
+    const searchCorpUrl = `${process.env.REACT_APP_SPRING_URL}searchCorp?q=${searchParams.get('q')}&currentPageCorp=${searchParams.get('corp')}`;
+    const searchJobUrl = `${process.env.REACT_APP_SPRING_URL}searchJob?q=${searchParams.get('q')}&currentPageJob=${searchParams.get('job')}`;
+    useEffect(() => {
 
         axios.get(searchCorpUrl)
-        .then(res => {
-            setCorp(res.data)
-            // setCorp(corpInfo.list)
-        })
-        .catch(err => {
-            console.log("1연관검색어 검색 실패")
-        })
-        console.log("corpInfo",corp)
-
+            .then(res => {
+                console.log(res.data)
+                setCorp(res.data)
+            })
+            .catch(err => {
+                console.log("1연관검색어 검색 실패")
+            })
         axios.get(searchJobUrl)
-        .then(res => {
-            setJob(res.data)
-            // setJob(jobInfo.list)
-            
-        })
-        .catch(err => {
-            console.log("2연관검색어 검색 실패")
-        })
-        console.log("jobInfo",job)
-    },[])
+            .then(res => {
+                console.log(res.data)
+
+                setJob(res.data)
+            })
+            .catch(err => {
+                console.log("2연관검색어 검색 실패")
+            })
+    }, [])
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', minHeight:'100vh' }}>
-            {console.log("res1",corpList)}
+        <div style={{ display: 'flex', justifyContent: 'center', minHeight: '100vh' }}>
+            
+            {console.log("list",job['list'])}
             <Container>
                 <SearchWord>
                     <h3>{searchParams.get('q')}</h3>
                 </SearchWord>
-                <hr/>
+                <hr />
                 <CardWrap>
-                    {/* <Title>기업 {corp.list.length}</Title> */}
+                    <Title>기업 {corp.no==null?0:corp.no}</Title>
                     <Cards>
                         {
-                            corp&&corp.list==null?
-                            <div>"{searchParams.get('q')}" 검색어에 해당하는 기업이 존재하지 않습니다.</div>
-                            :corp.list.map((data,idx) => (
-                                <CorpCard>
-                                    <a href="">
-                                        <div style={{display:'flex'}}>
-                                            <div className='corpImg'
-                                                style={{backgroundImage: `url(${corpImg})`}}>
+                            corp.no == null ?
+                                <div>"{searchParams.get('q')}" 검색어에 해당하는 기업이 존재하지 않습니다.</div>
+                                : corp.list.map((data, idx) => (
+                                    <CorpCard>
+                                        <a style={{ textDecoration: 'none' }} href="">
+                                            <div style={{ display: 'flex' }}>
+                                                <div className='corpImg'
+                                                    style={{ backgroundImage: `url(${corpImg})` }}>
+                                                </div>
+                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                    <h5 style={{ fontWeight: '400' }}>{data.corpName}</h5>
+                                                    <h6>{data.corpAddr}</h6>
+                                                </div>
                                             </div>
-                                            <div style={{display:'flex', flexDirection:'column'}}>
-                                                <h5 style={{fontWeight:'400'}}>{data.corpName}</h5>
-                                                <h6>{data.corpAddr}</h6>
-                                            </div>
-                                        </div>
-                                        <CorpButton>
-                                            <span className='button-label'>
-                                                팔로우
-                                            </span>
-                                        </CorpButton>
-                                    </a>
-                                </CorpCard>
-                            ))
+                                        </a>
+                                    </CorpCard>
+                                ))
                         }
                     </Cards>
                 </CardWrap>
-                <hr/>
+                <hr />
                 <CardWrap>
-                    {/* <Title>채용정보 {job.list.length}</Title> */}
+                    <Title>채용정보 {job.no==null?0:job.no}</Title>
                     <Cards>
                         {
-                            job&&job.list==null?
-                            <div>"{searchParams.get('q')}" 검색어에 해당하는 채용정보가 존재하지 않습니다.</div>
-                            :job.list.map((data,idx)=>(
-                                <Card>
-                                    <a href="">
-                                        <div className="img_box">
-                                            <img src={corpImg} alt="" className="thumns-img" />
-                                        </div>
-                                    </a>
-                                    <ContentBox>
-                                        <a class="link" href="" target="_blank" onclick="GA.event('main_test_v1','company_story_title', { label: '7' });">
-                                            <h3 class="title">{data.jobPostingTitle}</h3>
-                                            <div class="desc">{data.jobType}</div>
+                            job.no == null?
+                                <div>"{searchParams.get('q')}" 검색어에 해당하는 채용정보가 존재하지 않습니다.</div>
+                                : job.list.map((data, idx) => (
+                                    <Card key={idx}>
+                                        <a href="#">
+                                            <div className="img_box">
+                                                <img src={corpImg} alt="" className="thumns-img" />
+                                            </div>
                                         </a>
-                                    </ContentBox>
-                                </Card>
-                            )
-                            )
+                                        <ContentBox>
+                                            <a className="link" href="" target="_blank" onclick="GA.event('main_test_v1','company_story_title', { label: '7' });">
+                                                <h6 style={{margin:'0 0 8px '}}>{data.corpName}</h6>
+                                                <h3 style={{ margin: '0' }} class="title">{data.jobPostingTitle}</h3>
+                                                <div class="desc">{data.jobType}</div>
+                                            </a>
+                                        </ContentBox>
+                                    </Card>
+                                )
+                                )
                         }
                     </Cards>
+                    {/* 페이징 */}
+                    {/* <div style={{width:'700px', textAligh:'center',display:'flex',justifyContent: 'center'}}>
+                        <ul className='pagination'>
+                            {job&&(job.startPage>1&&<li><Link to={`/search?q=${searchParams.get('q')}&currentPageCorp=${job.startPage-1}`}>이전</Link></li>)}
+                            {
+                                job&&job.parr.map(n=>{
+                                    const url = `/search?q=${searchParams.get('q')}&currentPageCorp=`+n
+                                    // data.endPage%5==0?
+                                    return<li>
+                                        <Link to={url}><b style={{color:n==searchParams.get('job')?'red':'black'}}>{n}</b></Link>
+                                    </li>
+                                })
+                            }
+                            {job&&job.endPage<job.totalPage?(<li><Link to={`/search?q=${searchParams.get('q')}&currentPageCorp=${job.endPage+1}`}>다음</Link></li>):''}
+                        </ul>
+                    </div> */}
                 </CardWrap>
             </Container>
         </div>

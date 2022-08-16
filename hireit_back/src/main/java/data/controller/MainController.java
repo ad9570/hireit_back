@@ -60,7 +60,7 @@ public class MainController {
 
     @GetMapping("/searchCorp")
     public Map<String, Object> getQCorp(@RequestParam String q,
-          @RequestParam(defaultValue = "1")int currentPage){
+          @RequestParam(defaultValue = "1")int currentPageCorp){
        int totalCount;//총갯수
       int perPage=5;//한 페이지당 보여질 글의 갯수
       int perBlock=5;//한(밑에 페이지 숫자)블럭당 보여질 페이지수
@@ -69,17 +69,19 @@ public class MainController {
       int startPage;//한블럭에서 보여질 시작 페이지 번호
       int endPage;//한블럭에서 보여질 끝 페이지 번호
       int no;//각페이지당 보여질 시작번호
+
+      System.out.println("currentPageCorp" + currentPageCorp);
       
       totalCount=mainService.getTotalCount(q);
       totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
-      startPage=(currentPage-1)/perBlock*perBlock+1;
+      startPage=(currentPageCorp-1)/perBlock*perBlock+1;
             
       endPage=startPage+perBlock-1;
       if(totalPage<endPage) {
          endPage=totalPage;
       }
-      startNum=(currentPage-1)*perPage;
-      no=totalCount-(currentPage-1)*perPage;
+      startNum=(currentPageCorp-1)*perPage;
+      no=totalCount-(currentPageCorp-1)*perPage;
       List<Map<String, Object>> list= mainService.getQueryCorp(q,startNum, perPage);
       System.out.println("list : "+list);
       System.out.println("list mapper : "+mainService.getQueryCorp(q,startNum, perPage));
@@ -101,16 +103,16 @@ public class MainController {
       map.put("totalCount", totalCount);
       map.put("startPage", startPage);
       map.put("endPage", endPage);
-      map.put("no", no);
+      map.put("no", no==0?null:no);
       
       return map;
    }
 
     @GetMapping("/searchJob")
     public Map<String, Object> getQJob(@RequestParam String q,
-       @RequestParam(defaultValue = "1")int currentPage){
+       @RequestParam(defaultValue = "1")int currentPageJob){
    int totalCount;//총갯수
-   int perPage=5;//한 페이지당 보여질 글의 갯수
+   int perPage=8;//한 페이지당 보여질 글의 갯수
    int perBlock=5;//한(밑에 페이지 숫자)블럭당 보여질 페이지수
    int totalPage; //총페이지수
    int startNum;//한페이지에서 보여질 시작 글번호
@@ -122,7 +124,7 @@ public class MainController {
    totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
    //totalPage=(int)Math.ceil((double)totalCount/perPage);//무조건올림
    
-   startPage=(currentPage-1)/perBlock*perBlock+1;
+   startPage=(currentPageJob-1)/perBlock*perBlock+1;
          
    endPage=startPage+perBlock-1;
    if(totalPage<endPage) {
@@ -130,8 +132,8 @@ public class MainController {
    
       
    }
-   startNum=(currentPage-1)*perPage;
-   no=totalCount-(currentPage-1)*perPage;
+   startNum=(currentPageJob-1)*perPage;
+   no=totalCount-(currentPageJob-1)*perPage;
    List<Map<String,Object>> list= mainService.getQueryJob(q,startNum, perPage);
    System.out.println("list : "+list);
    
@@ -149,7 +151,7 @@ public class MainController {
    map.put("totalCount", totalCount);
    map.put("startPage", startPage);
    map.put("endPage", endPage);
-   map.put("no", no);
+   map.put("no", no==0?null:no);
    
    return map;
     }
