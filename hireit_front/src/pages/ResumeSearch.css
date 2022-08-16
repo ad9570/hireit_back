@@ -45,6 +45,12 @@ div.underline_corp{
     font-size:0.9rem;
 }
 
+.region{
+    height: 30px;
+    margin-left:3.5rem;
+    font-size:0.9rem;
+}
+
 .tech{
     height: 30px;
     margin-left:3.5rem;

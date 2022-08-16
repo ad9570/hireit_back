@@ -1,13 +1,17 @@
 h3.corpOpenResume{
     position: absolute;
-    top: 270px;
+    float: left;
+    width: 300px;
+    top: 340px;
     left: 350px;
     font-weight: bold;
 }
 
 h3.corpOpenResume2{
     position: absolute;
-    top: 330px;
+    float: left;
+    width: 300px;
+    top: 400px;
     left: 480px;
     font-weight: bold;
 }
@@ -28,7 +32,7 @@ img {
 .imageResume{
     position: relative;
     top: 80px;
-    left: 70px;
+    left: 60px;
 }
 
 .imageResume2{

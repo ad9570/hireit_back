@@ -110,7 +110,7 @@ const TechTeg = (props) => {
                     
                     <div className='col-lg-6' ><br/>
                         <Box
-                            sx={{width:400, height: 250, bgcolor: 'background.paper' }}
+                            sx={{width:400, height: 300, bgcolor: 'background.paper' }}
                             >
                         {techTegs &&
                         techTegs

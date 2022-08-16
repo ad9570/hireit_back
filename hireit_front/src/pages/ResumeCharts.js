@@ -72,8 +72,10 @@ const ResumeCharts = () => {
             <h3 className='corpOpenResume2' >열람해보세요.</h3>
             <img className='imageResume2' src={img2} alt=''/> */}
             <img className='imageResume' src={img} alt=''/>
+            <div>
             <h3 className='corpOpenResume'>총 {tot}명의 지원자가</h3><br/>
             <h3 className='corpOpenResume2' >구직 중입니다.</h3>
+            </div>
             <img className='imageResume2' src={img2} alt=''/>
             </div>
             <span className='openresume'>OPEN 이력서 페이지입니다. 이력서를 열람해주세요.</span>

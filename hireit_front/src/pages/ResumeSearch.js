@@ -21,7 +21,7 @@ const ResumeSearch=({dto})=>{
     const {currentPage}=useParams();
     const navi=useNavigate();
     let photoUrl=process.env.REACT_APP_SPRING_URL+"image/";
-    
+
     return(
         <div className="list1">
             <div className="underline_corp">
@@ -52,12 +52,13 @@ const ResumeSearch=({dto})=>{
                                     
                                     <div className="name justifyAsia">이&emsp;&emsp;름: <span className="tit">&nbsp;{v.name}</span></div>
                                     <div className="birth justifyAsia">생년월일: <span className="tit">{v.user_birth}</span></div>
+                                    <div className="region justifyAsia">지역: <span className="tit">{v.user_addr}</span></div>
                                     <div className="tech justifyAsia">기술스택: <span className="tit">{v.tech_tags}</span></div>
                                     <div className="expri justifyAsia">경&emsp;&emsp;력: <span className="tit"><TotalYear year={v.total_year}/>년</span></div>
                                     <div className="just">자기소개:
                                     <p className="intro justifyAsia" > {v.intro}</p></div>
                                     <Button className='btndetail' type='button' variant="contained"
-                                    onClick={()=>{navi('resume/detail/'+v.username+'/'+v.resume_idx)}}>상세보기</Button>
+                                    onClick={()=>{navi('../../resume/detail/'+v.username+'/'+v.resume_idx)}}>상세보기</Button>
                                     
                                 </Typography>
                                 

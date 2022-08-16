@@ -29,7 +29,7 @@ const navi = useNavigate();
                 dto.list && dto.list.map((v,i)=>(
 
                     <Card className="card" sx={{ maxWidth: 370, textShadow:' 2px 2px 2px gray'}} 
-                    onClick={()=>{navi('job_posting/detail/'+v.corp_id+'/'+v.num)}}>
+                    onClick={()=>{navi('../../job_posting/detail/'+v.corp_id+'/'+v.num)}}>
                         <CardActionArea>
                             <CardMedia
                             component="img"

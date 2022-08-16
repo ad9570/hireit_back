@@ -154,7 +154,7 @@ const RecommendCorp = () => {
                 dto && dto.map((v,idx)=>(
                     
                         
-                        <SlickItems className='slideitem' key={idx} onClick={()=>{navi('job_posting/detail/'+v.corp_id+'/'+v.num)}} >
+                        <SlickItems className='slideitem' key={idx} onClick={()=>{navi('../../job_posting/detail/'+v.corp_id+'/'+v.num)}} >
                             <img className='slideimg' src={photoUrl+v.job_posting_photo} alt=''  />
                             <div className='slidetitle'>
                             {v.corp_name}<br/>
