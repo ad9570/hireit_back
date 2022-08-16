@@ -20,6 +20,7 @@ public class JobPostingService implements JobPostingServiceInter {
 	@Override
 	public void insertJob(JobPostingDto dto) {
 		jobpostingMapper.insertJob(dto);
+		
 	}
 
 	@Override
@@ -94,6 +95,6 @@ public class JobPostingService implements JobPostingServiceInter {
 	@Override
 	public void insertApply(ApplyDto dto) {
 		jobpostingMapper.insertApply(dto);
+		
 	}
-	
 }

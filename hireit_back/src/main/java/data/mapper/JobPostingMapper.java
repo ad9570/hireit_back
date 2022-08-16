@@ -10,7 +10,6 @@ import data.dto.MemberDto;
 
 @Mapper
 public interface JobPostingMapper {
-	
 	public void insertJob(JobPostingDto dto);
 	public JobPostingDto getNum(String corp_id);
 	public JobPostingDto jobDetail(int num);
@@ -24,5 +23,4 @@ public interface JobPostingMapper {
 	public String unscrap(String username);
 	public void mergeScrap(Map<String, String> map);
 	public void insertApply(ApplyDto dto);
-	
 }
