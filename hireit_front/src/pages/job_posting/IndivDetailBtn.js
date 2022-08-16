@@ -17,7 +17,7 @@ const IndivDetailBtn = () => {
     const [job_posting_idx, setJob_posting_idx] = useState('');
     const [job_position, setJob_position] = useState('');
     const [applyday, setApplyday] = useState('');
-    const username = localStorage.username;
+    const username = localStorage.id;
 
     const indivID = () => {
         setIndiv_id(username);

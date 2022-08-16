@@ -317,7 +317,7 @@ const JobPostingUpdate = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td colSpan='2' className='button'>
+                        <td colSpan='2' className='buttons'>
                             <button type='button' className='btn btn-light' onClick={() => {
                                 window.history.go(-1);
                             }}>취소</button>

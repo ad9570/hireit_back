@@ -96,13 +96,14 @@ textarea.txt {
     margin-bottom: 10px;
 }
 
-td.button {
+ td.buttons {
+    padding-top: 100px;
     text-align: center;
-    padding-top: 50px;
-}
+} 
 
-td.button button {
-    width: 330px;
+td.buttons button {
+    width: 480px;
+    height: 50px;
     margin-right: 10px;
 }
 
@@ -233,7 +234,6 @@ select.applyS {
     width: 450px;
     height: 50px;
     padding: 10px 10px;
-    /* border: 3px solid rgb(255, 196, 3); */
 }
 
 span.titleS {

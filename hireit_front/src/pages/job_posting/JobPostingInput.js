@@ -94,6 +94,8 @@ const JobPostingInput = () => {
     };
 
     const handleOpen = () => {
+
+    console.log(corp_id,corp_idx,corp_name);
         axios.get(getNum).then(res=>{
             setNum(res.data.num);
             setOpen(true);
@@ -101,7 +103,7 @@ const JobPostingInput = () => {
     }
 
     const handleClose = () => {
-        setOpen(false);           
+        // setOpen(false);           
         Navi('/job_posting/detail/'+corp_id+'/'+num);
     }
 
@@ -110,7 +112,6 @@ const JobPostingInput = () => {
             setCorp_id(res.data.username);
             setCorp_name(res.data.name);
             setCorp_idx(res.data.user_id);
-            console.log(res.data)
         })
     }
 
@@ -142,7 +143,7 @@ const JobPostingInput = () => {
 
     useEffect(()=>{
         Info();
-    },[])
+    })
     
     return (
         <form onSubmit={JobInsert}>
@@ -299,7 +300,7 @@ const JobPostingInput = () => {
                             </td>
                     </tr>
                     <tr>
-                        <td colSpan='2' className='button'>
+                        <td colSpan='2' className='buttons'>
                             <button type='button' className='btn btn-light'>취소</button>
                             <button type='submit' className='btn btn-dark'>등록</button>
                             <Modal

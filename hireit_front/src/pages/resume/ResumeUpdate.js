@@ -119,7 +119,6 @@ const ResumeUpdate = () => {
         setOpen_radio('1');
         setPublicClosed(e.target.value);
     }
-    // console.log(edu_radio)
 
     const { user_id } = useParams();
     const { resume_idx } = useParams();
@@ -376,8 +375,7 @@ const ResumeUpdate = () => {
                                 </td>
                             </tr>
                             <tr>
-                                {edu_radio === 2 || edu_radio === '2' &&
-                                    <Major sch_major={sch_major} setSch_major={setSch_major} />}
+                            {edu_radio === '2' || edu_radio === 2 ?  <Major sch_major={sch_major} setSch_major={setSch_major} /> : <></>}
                             </tr>
                         </tbody>
                     </table>

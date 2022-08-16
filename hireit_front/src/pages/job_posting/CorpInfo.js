@@ -8,7 +8,7 @@ const CorpInfo = ({ com_liked, corp_photo, corp_name, corp_addr, corp_hp, corp_e
     //관심기업
     const [liked, setLiked] = useState(false);
     const [unlike, setUnlike] = useState(true);
-    let user_id = localStorage.user_id;
+    let username = localStorage.id;
 
     //URL
     let photoUrl = `${process.env.REACT_APP_SPRING_URL}save/`;
@@ -55,9 +55,8 @@ const CorpInfo = ({ com_liked, corp_photo, corp_name, corp_addr, corp_hp, corp_e
                                         <button type='button' className='btn btn-outline-danger' onClick={() => {
                                             setUnlike(false);
                                             setLiked(true);
-                                            console.log(corp_name, user_id);
 
-                                            axios.get(likedUrl + "?username=" + user_id + "&com_liked=" + corp_name).then(res => {
+                                            axios.get(likedUrl + "?username=" + username + "&com_liked=" + corp_name).then(res => {
                                                 // console.log(corp_name);
                                                 alert("관심기업 설정이 완료되었습니다");
                                             })
@@ -67,7 +66,7 @@ const CorpInfo = ({ com_liked, corp_photo, corp_name, corp_addr, corp_hp, corp_e
                                         <button type='button' className='btn btn-danger' onClick={() => {
                                             setUnlike(true);
                                             setLiked(false);
-                                            axios.get(unlikeUrl + "?username=" + user_id + "&corp_name=" + corp_name).then(res => {
+                                            axios.get(unlikeUrl + "?username=" + username + "&corp_name=" + corp_name).then(res => {
                                                 console.log(corp_name);
                                                 alert("관심기업 설정이 해제되었습니다");
                                             })
