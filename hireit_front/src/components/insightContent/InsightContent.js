@@ -33,12 +33,12 @@ const InsightContent = ({tag}) => {
                     <div key={idx} className="insight-list">
                         <a style={{ width: '100%' }} target='_blank' href={data.url}>
                             <div className="career-insight-content-image-wrap" style={{paddingBottom:(data.profile_img=='branch.jpg')?'70%':''}}>
-                                {data.profile_img=='branch.jpg'?<div><img src={process.env.REACT_APP_SPRING_URL + "static/image/career_insight/" + data.profile_img} alt=""/></div>:<img width='250' height='175' src={process.env.REACT_APP_SPRING_URL + "static/image/career_insight/" + data.profile_img} alt="" />}
+                                {data.profile_img=='branch.jpg'?<div><img src={process.env.REACT_APP_SPRING_URL + "career_insight/" + data.profile_img} alt=""/></div>:<img width='250' height='175' src={process.env.REACT_APP_SPRING_URL + "career_insight/" + data.profile_img} alt="" />}
                             </div>
                             <p className="career-insight-content-title">{data.title}</p>
                             <p className="career-insight-content-desc">{data.description!='null'?data.description:''}</p>
                             <div className="career-insight-content-info">
-                                <img src={process.env.REACT_APP_SPRING_URL + "static/image/career_insight/" + (data.platform=='brunch'?'brunch.jpg':'youtube.jpg')} alt="" />
+                                <img src={process.env.REACT_APP_SPRING_URL + "career_insight/" + (data.platform=='brunch'?'brunch.jpg':'youtube.jpg')} alt="" />
                                 <p style={{ margin: '0 5px' }}>{data.name}</p>
                             </div>
                         </a>
