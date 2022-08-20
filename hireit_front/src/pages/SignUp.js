@@ -60,7 +60,7 @@ const SignUp = () => {
                 </li>
             </ul>
 
-            <form onSubmit={handleSubmit(signUp)}>
+            <form onSubmit={handleSubmit(signUp)} className="signupForm">
                 <div className="first-input input__block second-input__block">
                     <input type="text" placeholder="ID / Email" className="input" id="username"
                     {...register("username", {

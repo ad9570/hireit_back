@@ -48,7 +48,7 @@ const Login = () => {
                 </li>
             </ul>
 
-            <form action="" method="post">
+            <form action="" method="post" className="loginForm">
                 <div className="first-input input__block first-input__block">
                     <input type="text" placeholder="ID / Email" className="input" id="username" onChange={(e) => setUsername(e.target.value)}/>
                 </div>
