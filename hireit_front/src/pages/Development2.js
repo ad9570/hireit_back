@@ -19,7 +19,7 @@ const navi = useNavigate();
     const {currentPage}=useParams();
     // const [dto,setDto]=useParams('');
     
-    let photoUrl=process.env.REACT_APP_SPRING_URL+"image/";
+    let photoUrl=process.env.REACT_APP_SPRING_URL+"save/";
 
 
     return (

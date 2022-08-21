@@ -5,7 +5,7 @@ import axios from "axios";
 import BoardRowItem from "./BoardRowItem";
 import Comm_Total from "./Comm_Total";
 
-const MiniCareer=()=>{
+const MiniQandA=()=>{
     const navi=useNavigate();
     //백엔드에서 받아올 리스트 데이타 변수
     const [cateList,setCateList]=useState([]);
@@ -15,7 +15,7 @@ const MiniCareer=()=>{
   
    
     //url 선언
-    let url = "http://localhost:9001/board/alllist?category_name=" +"커리어" ;
+    let url = "http://localhost:9001/board/alllist?category_name=" +"QandA" ;
     let photoUrl = "http://localhost:9001/save/";
 
  //데이타 가져오는 함수
@@ -30,7 +30,7 @@ const MiniCareer=()=>{
 
     //처음 랜더링시 딱 한번 데이타 가져오기
     useEffect(()=>{
-      console.log("커리어!");
+      console.log("QandA!");
       list();
     },[url]);
 
@@ -111,4 +111,4 @@ const MiniCareer=()=>{
     )
 }
 
-export default MiniCareer;
+export default MiniQandA;

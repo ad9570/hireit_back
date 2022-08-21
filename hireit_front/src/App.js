@@ -43,8 +43,7 @@ import SearchCorp from './pages/SearchCorp';
 function App() {
   const [login, setLogin] = useState({
     ok: 'no',
-    id: 'corp1',
-    role: '',
+    id: '',
     token: ''
   });
   const [indivLogin, setIndivLogin] = useState(true);
@@ -52,7 +51,7 @@ function App() {
   const [category, setCategory]=useState([]);
 
   return (
-      <LoginContext.Provider value={{login, setLogin, indivLogin,setIndivLogin,corpLogin}}>
+      <LoginContext.Provider value={{login, setLogin, indivLogin, setIndivLogin, corpLogin, setCorpLogin}}>
         <div className="headder">
           <Routes>
             <Route path='/corp/*' element={<HeaderCorp />} />

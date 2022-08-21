@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useContext, useState} from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import RecommendCorp from './RecommendCorp';
 import Box from '@mui/material/Box';
@@ -18,6 +18,7 @@ import { click } from '@testing-library/user-event/dist/click';
 import axios from 'axios';
 import { useEffect } from 'react';
 import './Search.css';
+import { LoginContext } from 'contexts/LoginContext';
 
 
 
@@ -57,14 +58,13 @@ const Search = (props) => {
     };
 
     //로그인 ok
-    let loginok=localStorage.loginok;
-    let id=localStorage.myid;
+    const { login, setLogin, indivLogin, setIndivLogin, corpLogin, setCorpLogin } = useContext(LoginContext);
 
     const initFunc=()=>{
-        if(loginok==null){
-            alert("먼저 로그인 후 글을 작성해주세요");
-            //navi("/login"); //login으로 가기
-
+        if(!indivLogin){
+            console.log(11111, indivLogin);
+            // alert("먼저 로그인 후 글을 작성해주세요");
+            // navi("/login"); //login으로 가기
         }
     }
 

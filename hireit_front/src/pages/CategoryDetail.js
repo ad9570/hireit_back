@@ -60,8 +60,8 @@ const category = [
 const CategoryDetail = ({showTeg,setShowTeg,searchList}) => {
     // const [newTeg, setNewTeg]= useState([]);
     
-    let loginok=localStorage.loginok;
-    let id=localStorage.myid;
+    // let loginok=localStorage.loginok;
+    // let id=localStorage.myid;
 
     const [click, setClick] = useState(new Array(category.length).fill(true));
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -82,11 +82,11 @@ const CategoryDetail = ({showTeg,setShowTeg,searchList}) => {
     const navi = useNavigate();
     const showCategory = () => {
         
-        if(loginok==null){
-            alert("먼저 로그인 후 글을 작성해주세요");
-            navi("/login"); //login으로 가기
+        // if(loginok==null){
+        //     alert("먼저 로그인 후 글을 작성해주세요");
+        //     navi("/login"); //login으로 가기
 
-        }
+        // }
         const tegArray = category.filter((value,i)=>!click[i]); //누른 아기들은 남긴다.
         const toString = tegArray.join(); //,로 배열을 스트링으로 
         

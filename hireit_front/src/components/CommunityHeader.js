@@ -1,84 +1,142 @@
 import { padding } from '@mui/system';
-import React from 'react';
+// import React from 'react';
 import '../App.css';
 import infoimg from '../image/logo.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap";
+import { ForkRight } from '@mui/icons-material';
+import React, { useContext, useEffect, useState } from 'react';
+import './common.css';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import Category from './Category';
+import SearchQuery from './search/SearchQuery';
 import { useNavigate } from 'react-router-dom';
+import logo from '../images/hireit-logo-rect.png'
+import { LoginContext } from '../contexts/LoginContext';
+
+import axios from 'axios';
 
 const CommunityHeader = () => {
+
+  const [toggleBtn, setToggleBtn] = useState(false);
+  
+  const {indivLogin,setIndivLogin,login} = useContext(LoginContext);
+  const [searchToggle, setSearchToggle] = useState(false);
+  const [catDisplay, setCatDisplay] = useState('none');
+  const catToggle=()=>{
+      if(catDisplay == 'none')
+          setCatDisplay('block')
+      else
+          setCatDisplay('none')
+  }
+
+  const [alarmCount, setAlarmCount] = useState(null);
+  useEffect(()=>{
+      const getAlarmCountUrl = process.env.REACT_APP_SPRING_URL + "getAlarmCount?id=" + login.id;
+      axios.get(getAlarmCountUrl)
+      .then(res=>{
+          setAlarmCount(res.data)
+      })
+      .catch(err=>{
+          console.log("실패!")
+      })
+  },[])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const navi=useNavigate();
 
 
     return (
-        <div className="communityheader">
-             <header id="sri_header">
-          {/* 로고 & 검색창 래퍼 */}
-          <div className="header-logo-search-wrap">
-            <img  src={infoimg} className="logo" alt='' 
-            style={{height:'100px', cursor: "pointer"}}
-            onClick={()=>{
-              navi("/community");
-              }}
-            >
-              
-            </img>
-            
+      <>
+            <div role='presentation' className="header-wrap" style={{position:'fixed',paddingRight:'initial',fontFamily:'S-CoreDream-5Mediumz ',color:'#333'}}>
+                {/* <div className='header-main-wrap'> */}
+                <nav className='header-main-nav'>
 
-<div className="btn-group">
-  <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-   커뮤니티&nbsp;
-  </button>
-  <ul className="dropdown-menu">
-    <li><a className="dropdown-item" href="#">채용정보</a></li>
-    <li><a className="dropdown-item" href="#">신입공채</a></li>
-    <li><a className="dropdown-item" href="#">기업·연봉정보</a></li>
-    <li><a className="dropdown-item" href="#">이직제안</a></li>
-    <li><a className="dropdown-item" href="#">인적성면접</a></li>
-  </ul>
-</div>    
-            <div className="search">
-            <nav className="navbar navbar-light" style={{backgroundcolor: "#e3f2fd"}}>
-                <div className="container-fluid">
-                  <form className="d-flex">
-                    <input style={{width:"700px"}} className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                    <button className="btn btn-outline-primary" type="submit">Search</button>
-                  </form>
-                </div>
-              </nav>
+                    <div className="header-main-nav-top">
+                        {/* <button className="header-main-hamberger-button">
+                            <MenuIcon 
+                                onClick={e=>{
+                                    catToggle()
+                                }}/>
+                        </button> */}
+                        
+                        <a href="/" className="header-main-logo" style={{color:'#333',textDecoration:'none'}}>
+                        <img style={{width:'25px',marginRight:'10px',marginLeft:'5px'}} src={logo} alt="" />
+
+                            HIREiT
+                        </a>
+                    </div>
+
+                    <ul className="header-main-nav-menu">
+                       
+                       
+                        <li className="header-main-navs">
+                            <a href="/community" style={{textDecoration:'none'}}>커뮤니티홈</a>
+                        </li>
+                        <li className="header-main-navs">
+                            <a href="/board/list/1" style={{textDecoration:'none'}}>글 전체</a>
+                        </li>
+                        <li className="header-main-navs">
+                            <a href="/community/comm_mypage" style={{textDecoration:'none'}}>MY프로필</a>
+                        </li>
+                    </ul>
+
+                    <aside className="header-main-nav-aside">
+                        <ul>
+                            <li>
+                                <button className='search-button' style={{outline:'none'}}
+                                onClick={()=>{
+                                    setSearchToggle(!searchToggle);
+                                }}>
+                                    <SearchIcon sx={{color:searchToggle?'#0a58ca':''}}/>
+                                </button>
+                            </li>
+                            {indivLogin?<li style={{margin:'3px 3px 0 15px',cursor:'pointer' }}
+                                onClick={()=>{
+                                    navi(`/mypage`)
+                                }}>
+                                 
+                            {console.log('toggleBtn',toggleBtn)}
+                            </li>:''}
+                            {!indivLogin&&<li>
+                                <button className="signup-button"
+                                    onClick={()=>{
+                                        if(indivLogin){setIndivLogin(!indivLogin)}else navi(`/login`)
+                                    }}>
+                                    회원가입/로그인
+                                </button>
+                            </li>}
+                            <li className='visible left-division'>
+                                <a className='dashboard-button' href="/corp/welcome" style={{textDecoration:'none'}}>기업 서비스</a>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </aside>
+                </nav>
+                {/* </div> */}
             </div>
-      
-      <div>
-            <button type="button" className="btn btn-primary" style={{margin:"10px"}}>로그아웃</button>
-            <button type="button" className="btn btn-primary position-relative">
-      Profile
-      <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-        <span className="visually-hidden">New alerts</span>
-      </span>
-    </button>
-    </div>
-              
-           
-            
-          </div>
+            <div className='main-header-category' style={{display:catDisplay}}>
+                <Category/>            
+            </div>
+            <div className="padding-main-padding"></div>
+            <SearchQuery st={searchToggle}/>
 
-          {/* 메뉴바 */}
-     
-            <nav className="nav">
-                <a className="nav-link" href="/Community">커뮤니티 홈</a>
-                <a className="nav-link" href="/board/list/1">글 전체</a>
-                <a className="nav-link" href="/community/comm_mypage">MY프로필</a>
-                {/* <a className="nav-link" href="/board/category">카테고리</a> */}
-                {/* onclick을 준 getData 버튼을 눌러서 이동해도 됐지만 게시판 내 각각 다른 설명을 주기 위해 
-                카테고리 개별 컴포넌트를 생성했음. 그리고 카테고리링크를 누르면 카테고리를 설정해주지 못한글이 나옴..
-                Board/list/1 의 테이블 값을 초기로 넘겨주는 방법을 모르겠음 */}
-
-                {/* <a className="nav-link" href="#">현직자인터뷰</a> */}
-            </nav>
-        </header>
-
-         </div>
-
+          
+        </>        
          
     );
 };

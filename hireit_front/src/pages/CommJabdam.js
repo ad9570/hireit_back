@@ -110,16 +110,14 @@ const CommJabdam=()=>{
 </div>
 <div className='red3' style={{ position: "relative", border: "1px solid #ffff", float: "right", width: "56%", height: "30px", justifyContent: "flex-end" }}>
     <div className="search">
-        <nav className="navbar navbar-light" style={{ backgroundcolor: "#e3f2fd" }}>
             <div className="container-fluid one" style={{ border: "1px solid #ffff", position:"relative", float: "left",bottom:"210px", width:"50ox",height: "300px" }}>
-                    <img src={img9} className="logo" alt='' style={{position:"relative", width:"300px", left:"410px",top:"30px"}} />
+                    <img src={img9} className="logo" alt='' style={{ width:"300px", left:"410px",top:"30px"}} />
                             
                 {/* <form className="d-flex">
                     <input style={{ width: "300px", position:"relative",float:"right" }} className="form-control me-2" type="search" placeholder="다른사람들은 어떤 이야기를 할까?" aria-label="Search" />
                     <button className="btn btn-outline-primary" type="submit">Search</button>
                 </form> */}
             </div>
-        </nav>
     </div>
 </div>
 </div>
